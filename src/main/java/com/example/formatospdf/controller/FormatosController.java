@@ -27,6 +27,9 @@ public class FormatosController {
         verificadors.add(new Verificador("noe", "demo"));
         verificadors.add(new Verificador("noe", "demo"));
 
+
+
+
         ByteArrayOutputStream pdfStream = Anexo01.generatePdfStream(verificadors);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
