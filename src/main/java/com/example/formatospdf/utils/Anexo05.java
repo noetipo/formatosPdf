@@ -30,6 +30,9 @@ public class Anexo05 {
         Font normalFont = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL);
         Font smallFont = new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL);
 
+
+
+
         // Encabezado
         addParagraph(document, "ANEXO 05: PRUEBA HOL ", titleFont, Element.ALIGN_CENTER);
         document.add(Chunk.NEWLINE);
