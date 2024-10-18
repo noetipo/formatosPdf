@@ -2,10 +2,7 @@ package com.example.formatospdf.controller;
 
 
 import com.example.formatospdf.dto.Verificador;
-import com.example.formatospdf.utils.Anexo01;
-import com.example.formatospdf.utils.Anexo02;
-import com.example.formatospdf.utils.Anexo03;
-import com.example.formatospdf.utils.Anexo04;
+import com.example.formatospdf.utils.*;
 import com.itextpdf.text.DocumentException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -73,6 +70,19 @@ public class FormatosController {
         verificadors.add(new Verificador("noe", "demo"));
 
         ByteArrayOutputStream pdfStream = Anexo04.generatePdfStream(verificadors);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=query_results.pdf");
+        headers.setContentLength(pdfStream.size());
+        return new ResponseEntity<>(pdfStream.toByteArray(), headers, HttpStatus.OK);
+    }
+    @GetMapping("/anexo5")
+    public ResponseEntity<byte[]> anexo5() throws IOException, DocumentException {
+        List<Verificador> verificadors = new ArrayList<>();
+        verificadors.add(new Verificador("noe", "demo"));
+        verificadors.add(new Verificador("noe", "demo"));
+
+        ByteArrayOutputStream pdfStream = Anexo05.generatePdfStream(verificadors);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=query_results.pdf");
