@@ -136,4 +136,23 @@ public class FormatosController {
         headers.setContentLength(pdfStream.size());
         return new ResponseEntity<>(pdfStream.toByteArray(), headers, HttpStatus.OK);
     }
+
+    @GetMapping("/carta-presentacion")
+    public ResponseEntity<InputStreamResource> generateCartaPresentacionWord() throws IOException {
+        // Generar el documento Word en un ByteArrayOutputStream
+        ByteArrayOutputStream wordStream = CartaPresentacionWord.generateWordStream();
+
+        // Convertir el OutputStream a InputStream para la respuesta
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(wordStream.toByteArray());
+
+        // Configurar los encabezados para la descarga
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment; filename=carta_presentacion.docx");
+
+        // Devolver el documento Word como archivo descargable
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(new InputStreamResource(byteArrayInputStream));
+    }
 }
