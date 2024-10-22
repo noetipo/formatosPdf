@@ -80,6 +80,7 @@ public class FormatosController {
         headers.setContentLength(pdfStream.size());
         return new ResponseEntity<>(pdfStream.toByteArray(), headers, HttpStatus.OK);
     }
+
     @GetMapping("/generate")
     public ResponseEntity<InputStreamResource> generateWord() throws IOException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -120,6 +121,19 @@ public class FormatosController {
         return ResponseEntity.ok()
                 .headers(headers)
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .body(new InputStreamResource(byteArrayInputStream));
+                .body(new InputStreamResource(byteArrayInputStream));}
+
+    @GetMapping("/anexo5")
+    public ResponseEntity<byte[]> anexo5() throws IOException, DocumentException {
+        List<Verificador> verificadors = new ArrayList<>();
+        verificadors.add(new Verificador("noe", "demo"));
+        verificadors.add(new Verificador("noe", "demo"));
+
+        ByteArrayOutputStream pdfStream = Anexo05.generatePdfStream();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=query_results.pdf");
+        headers.setContentLength(pdfStream.size());
+        return new ResponseEntity<>(pdfStream.toByteArray(), headers, HttpStatus.OK);
     }
 }
